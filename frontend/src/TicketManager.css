@@ -1,0 +1,52 @@
+/* ticketmanager.css */
+
+/* Styl komponentu TicketManager */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 5%; /* Dodaj przerwę 5% szerokości strony na lewo i prawo */
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* W pełnej szerokości kontenera */
+}
+
+.col-md-3 {
+  flex: 0 0 calc(24% - 20px); /* 24% szerokości z odstępem 20px */
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 20px; /* Dodaj przerwę 20px między kolumnami */
+  box-sizing: border-box; /* Upewnij się, że marginesy i padding nie wpływają na szerokość */
+}
+
+.column-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Styl kafelków */
+.card {
+  width: 10%;
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 5px solid #ccc; /* Dodaj obramowanie 5px */
+  border-radius: 5px;
+  cursor: grab;
+  white-space: wrap; /* Uniemożliwia zawijanie tekstu */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Ukryj nadmiar tekstu i dodaj "..." */
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card:active {
+  cursor: grabbing;
+}
