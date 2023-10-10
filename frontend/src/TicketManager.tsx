@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Columns, Column, Ticket } from "./types";
-//import "./App.css";
+import { useNavigate } from "react-router-dom";
 import "./TicketManager.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const initialColumns: Columns = {
   todo: {
@@ -73,43 +74,55 @@ const TicketManager: React.FC = () => {
     }
   };
 
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    // Przekieruj użytkownika na stronę LoginPage.tsx
+    navigate("/");
+  };
+
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className="container mt-5">
-        <div className="row">
-          {Object.values(columns).map((column) => (
-            <div key={column.id} className="col">
-              <h3 className="column-title">{column.title}</h3>
-              <Droppable droppableId={column.id}>
-                {(provided) => (
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                    className="column-container"
-                  >
-                    {column.items.map((item, index) => (
-                      <Draggable key={item} draggableId={item} index={index}>
-                        {(provided) => (
-                          <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            className="tile"
-                          >
-                            {item}
-                          </div>
-                        )}
-                      </Draggable>
-                    ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </div>
-          ))}
+    <>
+      <button className="logout-button" onClick={handleLogout}>
+        Logout
+      </button>
+
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="container mt-5">
+          <div className="row">
+            {Object.values(columns).map((column) => (
+              <div key={column.id} className="col">
+                <h3 className="column-title">{column.title}</h3>
+                <Droppable droppableId={column.id}>
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                      className="column-container"
+                    >
+                      {column.items.map((item, index) => (
+                        <Draggable key={item} draggableId={item} index={index}>
+                          {(provided) => (
+                            <div
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              className="tile"
+                            >
+                              {item}
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </DragDropContext>
+      </DragDropContext>
+    </>
   );
 };
 

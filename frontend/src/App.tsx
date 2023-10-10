@@ -1,15 +1,21 @@
 import { useState } from "react";
 import TicketManager from "./TicketManager";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LoginPage from "./LoginPage";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
-    <div>
-      <TicketManager />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/ticket-manager" element={<TicketManager />} />
+        <Route path="/" element={<LoginPage />} />
+      </Routes>
+    </Router>
   );
 }
 
