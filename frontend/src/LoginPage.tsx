@@ -9,10 +9,23 @@ const LoginPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (username === "admin" && password === "admin") {
-      navigate("/ticket-manager");
-    } else {
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (response.ok) {
+        navigate("/ticket-manager");
+      } else {
+        setIsModalOpen(true);
+      }
+    } catch (error) {
+      console.error("Błąd logowania:", error);
       setIsModalOpen(true);
     }
   };
@@ -21,17 +34,16 @@ const LoginPage: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // Stylizacja komunikatu modalnego
   const customModalStyles = {
     content: {
-      width: "300px", // Dostosuj szerokość komunikatu
+      width: "300px",
       height: "150px",
       fontSize: "20px",
-      margin: "auto", // Wyśrodkuj komunikat na ekranie
-      padding: "20px", // Dodaj wewnętrzny padding
-      border: "none", // Usuń obramowanie
-      borderRadius: "10px", // Dodaj zaokrąglenie rogów
-      boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)", // Dodaj cień
+      margin: "auto",
+      padding: "20px",
+      border: "none",
+      borderRadius: "10px",
+      boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)",
     },
   };
 
@@ -68,7 +80,7 @@ const LoginPage: React.FC = () => {
         onRequestClose={closeModal}
         contentLabel="Nieprawidłowe dane logowania"
         ariaHideApp={false}
-        style={customModalStyles} // Użyj dostosowanych stylów
+        style={customModalStyles}
       >
         <p style={{ marginBottom: "10px", textAlign: "center" }}>
           Nieprawidłowa nazwa użytkownika lub hasło

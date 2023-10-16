@@ -8,18 +8,18 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
-    networks:
-        - project-network
+    #networks:
+    #    - project-network
 
   frontend:
-    build:
-      context: ./frontend
-    ports:
-      - "5173:5173"
-    depends_on:
-      - backend
-    networks:
-      - project-network
+     build:
+       context: ./frontend
+     ports:
+       - "5173:5173"
+     depends_on:
+       - backend
+    # networks:
+     #  - project-network
 
   backend:
     build:
@@ -28,9 +28,9 @@ services:
       - "8080:8080"
     depends_on:
       - database
-    networks:
-      - project-network
+   # networks:
+     # - project-network
     
-networks:
-  project-network:
-    driver: bridge
+#networks:
+ # project-network:
+  #  driver: bridge

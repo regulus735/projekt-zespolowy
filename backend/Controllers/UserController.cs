@@ -1,15 +1,17 @@
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using projekt_zespolowy.Models;
+using projekt_zespolowy.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace projekt_zespolowy.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    [Route("api/[controller]")]
+    public class UserController : Controller
     {
         private readonly AppDbContext _context;
 
@@ -18,28 +20,69 @@ namespace projekt_zespolowy.Controllers
             _context = context;
         }
 
-        [HttpGet]
-public async Task<ActionResult<IEnumerable<string>>> GetAllUsernames()
-{
-    try
-    {
-        var usernames = await _context.Users
-            .Select(user => user.UserName)
-            .ToListAsync();
-
-        if (usernames == null || usernames.Count == 0)
+        public ActionResult SignUp()
         {
-            return NoContent();
+            return View();
         }
 
-        return Ok(usernames);
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine(ex.Message); 
+        [HttpPost("register")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignUp(UserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_context.Users.Any(u => u.UserName == model.UserName))
+                {
+                    ModelState.AddModelError("UserName", "Username already exists.");
+                    return View(model);
+                }
 
-        return StatusCode(500, "Internal Server Error");
-    }
-}
+                var user = new User
+                {
+                    UserName = model.UserName,
+                    Password = model.Password
+                };
+
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                return RedirectToAction("SignIn");
+            }
+
+            return View(model);
+        }
+
+        public ActionResult SignIn()
+        {
+            return View();
+        }
+
+        [HttpPost("login")]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignIn(UserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _context.Users.FirstOrDefault(u => u.UserName == model.UserName && u.Password == model.Password);
+
+                if (user != null)
+                {
+                    // Implement user authentication here (e.g., set a cookie or use Identity framework)
+                    return RedirectToAction("Welcome");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password");
+                }
+            }
+
+            return View();
+        }
+
+        // GET: /User/Welcome
+        public ActionResult Welcome()
+        {
+            return View();
+        }
     }
 }

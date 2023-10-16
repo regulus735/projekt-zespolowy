@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { Columns, Column, Ticket } from "./types";
+import { Columns, Column } from "./types";
 import { useNavigate } from "react-router-dom";
 import "./TicketManager.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -75,13 +75,13 @@ const TicketManager: React.FC = () => {
   };
 
   const navigate = useNavigate();
+
   const handleLogout = () => {
-    // Przekieruj użytkownika na stronę LoginPage.tsx
     navigate("/");
   };
 
   return (
-    <>
+    <div className="ticket-manager-container">
       <button className="logout-button" onClick={handleLogout}>
         Logout
       </button>
@@ -122,7 +122,7 @@ const TicketManager: React.FC = () => {
           </div>
         </div>
       </DragDropContext>
-    </>
+    </div>
   );
 };
 

@@ -3,8 +3,9 @@
     "",
     "\\Controllers",
     "\\Migrations",
-    "\\Models"
+    "\\Models",
+    "\\ViewModels"
   ],
-  "SelectedNode": "\\Dockerfile",
+  "SelectedNode": "\\Models\\AppDbContext.cs",
   "PreviewInSolutionExplorer": false
 }
