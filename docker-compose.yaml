@@ -8,8 +8,8 @@ services:
       ACCEPT_EULA: "Y"
     ports:
       - "1433:1433"
-    networks:
-        - project-network
+    #networks:
+        #- project-network
 
   # TODO: uncomment whent frontend template is ready
   # frontend:
@@ -29,9 +29,6 @@ services:
       - "8080:8080"
     depends_on:
       - database
-    networks:
-      - project-network
-    
-networks:
-  project-network:
-    driver: bridge
+    #networks:
+      #- project-network
+

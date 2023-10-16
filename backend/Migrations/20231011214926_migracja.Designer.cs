@@ -11,8 +11,8 @@ using projekt_zespolowy.Models;
 namespace projekt_zespolowy.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231010205953_migracja1")]
-    partial class migracja1
+    [Migration("20231011214926_migracja")]
+    partial class migracja
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

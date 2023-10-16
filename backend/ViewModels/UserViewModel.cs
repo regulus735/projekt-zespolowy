@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace projekt_zespolowy.Models;
+namespace projekt_zespolowy.ViewModels;
 
-public class User
+public class UserViewModel
 {
-    public int Id { get; set; }
-
+    [Required]
     public string UserName { get; set; }
 
+    [Required]
     public string Password { get; set; }
 }

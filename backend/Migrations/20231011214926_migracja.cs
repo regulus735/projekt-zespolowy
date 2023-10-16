@@ -4,7 +4,7 @@
 
 namespace projekt_zespolowy.Migrations
 {
-    public partial class migracja1 : Migration
+    public partial class migracja : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
