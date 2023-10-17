@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using projekt_zespolowy.Models;
 using projekt_zespolowy.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
 
 namespace projekt_zespolowy.Controllers
 {
@@ -19,69 +21,57 @@ namespace projekt_zespolowy.Controllers
             _context = context;
         }
 
-        public ActionResult SignUp()
-        {
-            return View();
-        }
+        private const string SecretKey = "VerySecretKeyTbh";
+        private readonly SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
         [HttpPost("register")]
-        [ValidateAntiForgeryToken]
-        public ActionResult SignUp(UserViewModel model)
+        public async Task<IActionResult> Register([FromBody] UserViewModel model)
         {
-            if (ModelState.IsValid)
+            if (await _context.Users.AnyAsync(u => u.UserName == model.UserName))
             {
-                if (_context.Users.Any(u => u.UserName == model.UserName))
-                {
-                    ModelState.AddModelError("UserName", "Username already exists.");
-                    return View(model);
-                }
-
-                var user = new User
-                {
-                    UserName = model.UserName,
-                    Password = model.Password
-                };
-
-                _context.Users.Add(user);
-                _context.SaveChanges();
-
-                return RedirectToAction("SignIn");
+                return BadRequest("Username is already taken.");
             }
+            return Ok(new { Message = "User registered successfully" });
 
-            return View(model);
-        }
+            var user = new User
+            {
+                UserName = model.UserName,
+                Password = model.Password,
+            };
 
-        public ActionResult SignIn()
-        {
-            return View();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = "User registered successfully" });
         }
 
         [HttpPost("login")]
-        [ValidateAntiForgeryToken]
-        public ActionResult SignIn(UserViewModel model)
+        public async Task<IActionResult> Login([FromBody] UserViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = _context.Users.FirstOrDefault(u => u.UserName == model.UserName && u.Password == model.Password);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == model.UserName);
 
-                if (user != null)
-                {
-                    // Implement user authentication here (e.g., set a cookie or use Identity framework)
-                    return RedirectToAction("Welcome");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password");
-                }
+            if (user == null || model.Password != user.Password)
+            {
+                return Unauthorized("Invalid credentials");
             }
 
-            return View(model);
-        }
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Role, "User"),
+            };
 
-        // GET: /User/Welcome
-        public ActionResult Welcome()
-        {
-            return View();
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(30),
+                signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
+            );
+
+            return Ok(new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = token.ValidTo
+            });
         }
     }
 }

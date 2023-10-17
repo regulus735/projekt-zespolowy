@@ -59,3 +59,13 @@ C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\obj\Debug\net
 C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\obj\Debug\net6.0\ref\projekt_zespolowy.dll
 C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Humanizer.dll
 C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\EntityFramework.SqlServer.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\EntityFramework.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.AspNet.Identity.Core.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.Owin.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.Owin.Security.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.Owin.Security.Cookies.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.Owin.Security.OAuth.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Owin.dll
