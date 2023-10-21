@@ -6,6 +6,7 @@ using projekt_zespolowy.ViewModels;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace projekt_zespolowy.Controllers
@@ -31,7 +32,6 @@ namespace projekt_zespolowy.Controllers
             {
                 return BadRequest("Username is already taken.");
             }
-            return Ok(new { Message = "User registered successfully" });
 
             var user = new User
             {
