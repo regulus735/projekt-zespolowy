@@ -1,0 +1,25 @@
+
+.columns-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 20px;
+    height: 90vh;
+  }
+  
+  .column {
+    flex: 1;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    display: flex;
+  }
+  
+  .column h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
