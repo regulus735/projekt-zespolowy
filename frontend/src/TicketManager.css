@@ -1,5 +1,6 @@
 /* ticketmanager.css */
 
+
 /* Styl komponentu TicketManager */
 .container {
   display: flex;
@@ -50,3 +51,77 @@
 .card:active {
   cursor: grabbing;
 }
+
+/* Stylizacja przeciąganych kafelków */
+.tile.dragging {
+  opacity: 0.6;
+  border: 2px dashed #333;
+}
+
+/* Stylizacja przycisków */
+.button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Stylizacja przycisków hover */
+.button:hover {
+  background-color: #0056b3;
+}
+
+/* Stylizacja kolumn */
+.column {
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 0.5rem;
+  min-width: 200px;
+}
+
+/* Stylizacja kafelków */
+.tile {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Stylizacja nagłówka */
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+.logout-button {
+  float: right; /* Przesuń przycisk na prawo */
+  margin-right: 20px; /* Dodaj odstęp z prawej strony */
+  margin-top: 10px; /* Dodaj odstęp z góry */
+}
+
+.ticket-manager {
+  position: relative;
+}
+
+.ticket-manager-header {
+  position: absolute;
+  top: 10px; /* Odległość od góry */
+  right: 10px; /* Odległość od prawej strony */
+}
+
+.logout-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Dodatkowe style dla przycisku, jeśli są wymagane */
