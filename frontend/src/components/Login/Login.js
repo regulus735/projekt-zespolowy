@@ -6,6 +6,7 @@ import React, {
   useRef,
 } from "react";
 
+import { useNavigate } from "react-router-dom";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import AuthContext from "../../store/auth-context";
@@ -37,6 +38,7 @@ const Login = (props) => {
   // const [emailIsValid, setEmailIsValid] = useState();
   // const [enteredPassword, setEnteredPassword] = useState('');
   // const [passwordIsValid, setPasswordIsValid] = useState();
+
   const [formIsValid, setFormIsValid] = useState(false);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
@@ -98,6 +100,7 @@ const Login = (props) => {
     dispatchPassword({ type: "INPUT_BLUR" });
   };
 
+  const navigate = useNavigate();
   async function submitHandler(event) {
     event.preventDefault();
     if (formIsValid) {
@@ -135,6 +138,7 @@ const Login = (props) => {
         // } catch (error) {
         //   console.error("Błąd podczas pobierania tokena JWT:", error);
         // }
+        navigate("/home");
       }
       //console.log(emailState.value);
       //console.log(passwordState.value);
@@ -145,9 +149,15 @@ const Login = (props) => {
     }
   }
 
+  function submitHandler2() {
+    authCtx.onLogin("emailState.value", "passwordState.value");
+
+    navigate("/home");
+  }
+
   return (
     <Card className={classes.login}>
-      <form onSubmit={authCtx.onLogin(emailState.value, passwordState.value)}>
+      <form onSubmit={submitHandler2}>
         <Input
           ref={emailInputRef}
           id="email"

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 
 import AuthContext from "../../store/auth-context";
 import classes from "./Navigation.module.css";
+import { Link } from "react-router-dom";
 
 const Navigation = () => {
   const ctx = useContext(AuthContext);
@@ -11,17 +12,34 @@ const Navigation = () => {
       <ul>
         {ctx.isLoggedIn && (
           <li>
-            <a href="/">Users</a>
+            <Link to="/home">Home</Link>
           </li>
         )}
         {ctx.isLoggedIn && (
           <li>
-            <a href="/">Admin</a>
+            <Link to="/projects">Projects</Link>
           </li>
         )}
+
         {ctx.isLoggedIn && (
           <li>
-            <button onClick={ctx.onLogout}>Logout</button>
+            <button onClick={ctx.onLogout}>
+              <Link to="/login">Logout</Link>
+            </button>
+          </li>
+        )}
+        {!ctx.isLoggedIn && !ctx.isSignIn && (
+          <li>
+            <button onClick={ctx.onSignIn}>
+              <Link to="/sign">Sign in</Link>
+            </button>
+          </li>
+        )}
+        {!ctx.isLoggedIn && ctx.isSignIn && (
+          <li>
+            <button onClick={ctx.onSignOff}>
+              <Link to="/login">Login</Link>
+            </button>
           </li>
         )}
       </ul>
