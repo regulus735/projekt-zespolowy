@@ -33,10 +33,19 @@ namespace projekt_zespolowy.Controllers
                 return BadRequest("Username is already taken.");
             }
 
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Name == model.Role);
+
+            if (role == null)
+            {
+                role = new Role { Name = model.Role };
+                _context.Roles.Add(role);
+            }
+
             var user = new User
             {
                 UserName = model.UserName,
                 Password = model.Password,
+                Role = role
             };
 
             _context.Users.Add(user);

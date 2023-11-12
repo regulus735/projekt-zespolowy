@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Final_React\\next\\projekt-zespolowy-a\\backend\\projekt_zespolowy.csproj": {}
+    "C:\\Users\\olejn\\Desktop\\Projekt_zespolowy\\projekt-zespolowy\\backend\\projekt_zespolowy.csproj": {}
   },
   "projects": {
-    "D:\\Final_React\\next\\projekt-zespolowy-a\\backend\\projekt_zespolowy.csproj": {
+    "C:\\Users\\olejn\\Desktop\\Projekt_zespolowy\\projekt-zespolowy\\backend\\projekt_zespolowy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Final_React\\next\\projekt-zespolowy-a\\backend\\projekt_zespolowy.csproj",
+        "projectUniqueName": "C:\\Users\\olejn\\Desktop\\Projekt_zespolowy\\projekt-zespolowy\\backend\\projekt_zespolowy.csproj",
         "projectName": "projekt_zespolowy",
-        "projectPath": "D:\\Final_React\\next\\projekt-zespolowy-a\\backend\\projekt_zespolowy.csproj",
-        "packagesPath": "C:\\Users\\barte\\.nuget\\packages\\",
-        "outputPath": "D:\\Final_React\\next\\projekt-zespolowy-a\\backend\\obj\\",
+        "projectPath": "C:\\Users\\olejn\\Desktop\\Projekt_zespolowy\\projekt-zespolowy\\backend\\projekt_zespolowy.csproj",
+        "packagesPath": "C:\\Users\\olejn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\olejn\\Desktop\\Projekt_zespolowy\\projekt-zespolowy\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\barte\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\olejn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -102,7 +102,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
