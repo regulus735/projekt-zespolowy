@@ -93,17 +93,14 @@ const Sign = (props) => {
   async function submitHandler(event) {
     event.preventDefault();
     if (formIsValid) {
-      const response = await fetch(
-        "https://pcz-app-default-rtdb.firebaseio.com/rejestracja.json",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            UserName: emailState.value,
-            Password: passwordState.value,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:8080/api/user/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          UserName: emailState.value,
+          Password: passwordState.value,
+        }),
+      });
 
       if (response.ok) {
         console.log("Rejestracja pomyślna");
@@ -151,7 +148,7 @@ const Sign = (props) => {
         />
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn}>
-            Sign in
+            Sign up
           </Button>
         </div>
       </form>

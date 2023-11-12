@@ -149,15 +149,15 @@ const Login = (props) => {
     }
   }
 
-  function submitHandler2() {
+  /*function submitHandler2() {
     authCtx.onLogin("emailState.value", "passwordState.value");
 
     navigate("/home");
-  }
+  }*/
 
   return (
     <Card className={classes.login}>
-      <form onSubmit={submitHandler2}>
+      <form onSubmit={submitHandler}>
         <Input
           ref={emailInputRef}
           id="email"
