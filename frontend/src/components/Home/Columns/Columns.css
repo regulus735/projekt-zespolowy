@@ -1,0 +1,33 @@
+.columns-container {
+  display: flex;
+  align-items: top;
+  height: 70em;
+}
+
+.column {
+  flex: 1;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 1em;
+  margin-left: 1em;
+  text-align: center;
+}
+
+.column h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.newTile {
+  list-style: none;
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  border-radius: 90px 90px 90px 90px;
+  width: 20vw;
+  height: 8vh;
+  margin: auto;
+  margin-top: 1em;
+}

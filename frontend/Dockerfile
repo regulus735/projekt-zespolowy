@@ -19,8 +19,8 @@ RUN npm run build
 # Set environment variable for React app
 ENV REACT_APP_API_URL=https://localhost:7247
 
-# Expose port 5173 for the application
-EXPOSE 5173
+# Expose port 3000 for the application
+EXPOSE 3000
 
 # Start the React app
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
