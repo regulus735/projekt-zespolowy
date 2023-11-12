@@ -110,6 +110,7 @@ const Login = (props) => {
         body: JSON.stringify({
           UserName: emailState.value,
           Password: passwordState.value,
+          Role: "1",
         }),
       });
       //if (response.ok) {

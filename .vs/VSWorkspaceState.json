@@ -2,9 +2,16 @@
   "ExpandedNodes": [
     "",
     "\\backend",
-    "\\backend\\Controllers",
-    "\\backend\\Models"
+    "\\backend\\ViewModels",
+    "\\frontend",
+    "\\frontend\\src",
+    "\\frontend\\src\\components",
+    "\\frontend\\src\\components\\Login",
+    "\\frontend\\src\\components\\Sign",
+    "\\frontend\\src\\components\\UI",
+    "\\frontend\\src\\components\\UI\\Card",
+    "\\frontend\\src\\photos"
   ],
-  "SelectedNode": "\\backend\\appsettings.json",
+  "SelectedNode": "\\frontend\\src\\components\\UI\\Card\\Card.js",
   "PreviewInSolutionExplorer": false
 }

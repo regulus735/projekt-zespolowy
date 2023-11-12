@@ -25,7 +25,7 @@ namespace projekt_zespolowy.Controllers
         private const string SecretKey = "VerySecretKeyTbh";
         private readonly SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
-        [HttpPost("register")]
+        [HttpPost("signup")]
         public async Task<IActionResult> Register([FromBody] UserViewModel model)
         {
             if (await _context.Users.AnyAsync(u => u.UserName == model.UserName))
@@ -40,7 +40,7 @@ namespace projekt_zespolowy.Controllers
                 role = new Role { Name = model.Role };
                 _context.Roles.Add(role);
             }
-
+            
             var user = new User
             {
                 UserName = model.UserName,
@@ -67,7 +67,7 @@ namespace projekt_zespolowy.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role, "User"),
+                //new Claim(ClaimTypes.Role, "User"),
             };
 
             var token = new JwtSecurityToken(
