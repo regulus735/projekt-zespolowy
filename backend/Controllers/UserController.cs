@@ -55,31 +55,36 @@ namespace projekt_zespolowy.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] UserViewModel model)
+        public async Task<IActionResult> Login([FromBody] UserLoginVM model)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.UserName == model.UserName);
+            // Include the Role in the query
+            var user = await _context.Users.Include(u => u.Role).SingleOrDefaultAsync(u => u.UserName == model.UserName);
 
             if (user == null || model.Password != user.Password)
             {
                 return Unauthorized("Invalid credentials");
             }
 
-            var claims = new[]
+            // Create claims for the JWT token, including the user's role
+            var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
-                //new Claim(ClaimTypes.Role, "User"),
+                new Claim(ClaimTypes.Role, user.Role.Name) // Assuming the Role property is not null
             };
 
+            // Create the JWT token
             var token = new JwtSecurityToken(
                 claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
             );
 
+            // Return the token, expiration, and user's role in the response
             return Ok(new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
+                expiration = token.ValidTo,
+                role = user.Role.Name // Include the user's role in the response
             });
         }
 

@@ -6,10 +6,7 @@
     "\\backend\\DTO",
     "\\backend\\Migrations",
     "\\backend\\Models",
-    "\\frontend\\src",
-    "\\frontend\\src\\components",
-    "\\frontend\\src\\components\\UI",
-    "\\frontend\\src\\components\\UI\\Card"
+    "\\backend\\ViewModels"
   ],
   "SelectedNode": "\\docker-compose.yaml",
   "PreviewInSolutionExplorer": false
