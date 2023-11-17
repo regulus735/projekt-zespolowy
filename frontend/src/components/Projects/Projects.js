@@ -1,27 +1,31 @@
-import React from "react";
+import React, { useContext, useMemo } from 'react';
 //import { useState, useEffect } from "react";
-import "./Projects.css";
+import './Projects.css';
+import ProjectContext from '../../store/projectContext/projectContext';
+import { Link } from 'react-router-dom';
+
+const ProjectCard = ({ project: { projectName, id } }) => (
+  <Link to={`/home/${id}`} style={{ textDecoration: 'none' }}>
+    <div className="project-card">
+      <h3>{projectName}</h3>
+      <p>description</p>
+    </div>
+  </Link>
+);
 
 function Projects() {
-  const projects = [
-    { id: 1, name: "Projekt A", description: "Opis projektu A" },
-    { id: 2, name: "Projekt B", description: "Opis projektu B" },
-    { id: 3, name: "Projekt C", description: "Opis projektu C" },
-    { id: 4, name: "Projekt D", description: "Opis projektu D" },
-    { id: 5, name: "Projekt E", description: "Opis projektu E" },
-  ];
+  const { projects } = useContext(ProjectContext);
+
+  const projectComponents = useMemo(
+    () =>
+      projects.map((project) => <ProjectCard key={`project-${project.id}`} project={project} />),
+    [projects],
+  );
 
   return (
     <div>
       <h2>Lista projektów:</h2>
-      <div className="project-grid">
-        {projects.map((project) => (
-          <div key={project.id} className="project-card">
-            <h3>{project.name}</h3>
-            <p>{project.description}</p>
-          </div>
-        ))}
-      </div>
+      <div className="project-grid">{projectComponents}</div>
     </div>
   );
 }
