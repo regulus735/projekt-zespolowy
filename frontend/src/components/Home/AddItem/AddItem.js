@@ -1,83 +1,96 @@
-import React, { useState } from "react";
-import "./AddItem.css";
+import React, { useContext, useMemo, useState } from 'react';
+import './AddItem.css';
+import ProjectContext from '../../../store/projectContext/projectContext';
 
-function AddItem({ onAddItem }) {
+function AddItem({ columnIndex }) {
   const [showForm, setShowForm] = useState(false);
-  const [newItemContent1, setNewItemContent1] = useState("");
-  const [newItemContent2, setNewItemContent2] = useState("");
-  const [newItemContent3, setNewItemContent3] = useState("");
-  const [addItemButton, setAddItemButton] = useState("Add Item");
+  const [addItemButton, setAddItemButton] = useState('Add Item');
+
+  const { projects, users, addTask } = useContext(ProjectContext);
 
   const handleShowForm = () => {
     setShowForm(true);
-    setAddItemButton("");
+    setAddItemButton('');
   };
 
   const handleHideForm = () => {
     setShowForm(false);
-    setAddItemButton("Add Item");
+    setAddItemButton('Add Item');
   };
 
-  const handleInputChange1 = (e) => {
-    setNewItemContent1(e.target.value);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const handleInputChange2 = (e) => {
-    setNewItemContent2(e.target.value);
-  };
+    const form = e.target;
+    const formData = new FormData(form);
 
-  const handleInputChange3 = (e) => {
-    setNewItemContent3(e.target.value);
-  };
+    const data = {
+      TaskStatus: columnIndex,
+    };
 
-  const handleAddItem = () => {
-    if (newItemContent1 && newItemContent2 && newItemContent3) {
-      // Przykład: dodawanie nowych elementów do tablicy
-      const newItem = [];
-      newItem.push("Task: " + newItemContent1);
-      newItem.push("Project: " + newItemContent2);
-      newItem.push("User: " + newItemContent3);
-
-      onAddItem(newItem);
-      setNewItemContent1("");
-      setNewItemContent2("");
-      setNewItemContent3("");
-      setShowForm(false);
-      setAddItemButton("Add Item");
+    for (const [key, value] of formData.entries()) {
+      data[key] = value;
+      if (!value) return;
     }
+
+    data.UserIds = [data.UserId];
+
+    addTask(data);
+
+    setShowForm(false);
+    setAddItemButton('Add Item');
+
+    e.target.reset();
   };
+
+  const projectsList = useMemo(() => {
+    const projectId = localStorage.getItem('projectId');
+
+    return projects.map(({ id, projectName }) => (
+      <option key={`project-item-${id}`} value={id} selected={+projectId === id}>
+        {projectName}
+      </option>
+    ));
+  }, [projects]);
+
+  const usersList = useMemo(
+    () =>
+      users.map(({ id, userName }) => (
+        <option key={`user-item-${id}`} value={id}>
+          {userName}
+        </option>
+      )),
+    [users],
+  );
 
   return (
     <div className="add-item">
       {showForm && (
-        <div className="add-item-form">
-          <input
-            type="text"
-            placeholder="Task"
-            value={newItemContent1}
-            onChange={handleInputChange1}
-          />
-          <input
-            type="text"
-            placeholder="Project"
-            value={newItemContent2}
-            onChange={handleInputChange2}
-          />
-          <input
-            type="text"
-            placeholder="User"
-            value={newItemContent3}
-            onChange={handleInputChange3}
-          />
+        <form className="add-item-form" method="post" onSubmit={handleSubmit}>
+          <input name="TaskName" type="text" placeholder="Task name" />
 
-          <button onClick={handleAddItem}>OK</button>
+          <input type="text" placeholder="Description" name="TaskDescription" />
+
+          <div>
+            <label htmlFor="project">Project</label>
+            <select name="ProjectId" id="project">
+              {projectsList}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="user">User</label>
+            <select name="UserId" id="user">
+              {usersList}
+            </select>
+          </div>
+
+          <button type="submit">OK</button>
           <button onClick={handleHideForm}>Cancel</button>
-        </div>
+        </form>
       )}
       <div className="add-item-button">
-        {addItemButton === "Add Item" && (
-          <button onClick={handleShowForm}>{addItemButton}</button>
-        )}
+        {addItemButton === 'Add Item' && <button onClick={handleShowForm}>{addItemButton}</button>}
       </div>
     </div>
   );

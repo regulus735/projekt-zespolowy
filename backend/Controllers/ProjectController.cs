@@ -120,6 +120,7 @@ namespace projekt_zespolowy.Controllers
                                           Id = t.Id,
                                           TaskName = t.TaskName,
                                           TaskDescription = t.TaskDescription,
+                                          TaskStatus = t.TaskStatus,
                                           Users = t.Users.Select(u => new UserDto
                                           {
                                               Id = u.Id,

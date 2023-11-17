@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Login from "./components/Login/Login";
-import Home from "./components/Home/Home";
-import MainHeader from "./components/MainHeader/MainHeader";
-import AuthContext from "./store/auth-context";
-import Sign from "./components/Sign/Sign";
-import Projects from "./components/Projects/Projects";
+import React, { useContext } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import MainHeader from './components/MainHeader/MainHeader';
+import AuthContext from './store/auth-context';
+import Sign from './components/Sign/Sign';
+import Projects from './components/Projects/Projects';
+import { ProjectContextProvider } from './store/projectContext/projectContext';
 
 function App() {
   const ctx = useContext(AuthContext);
@@ -14,17 +15,20 @@ function App() {
     <BrowserRouter>
       <div className="styleAll">
         <MainHeader />
-        <Routes>
-          {!ctx.isLoggedIn && !ctx.isSignIn && (
-            <Route path="/login" element={<Login />}></Route>
-          )}
+        <ProjectContextProvider>
+          <Routes>
+            {!ctx.isLoggedIn && !ctx.isSignIn && <Route path="/login" element={<Login />}></Route>}
 
-          {!ctx.isLoggedIn && ctx.isSignIn && (
-            <Route path="/sign" element={<Sign />}></Route>
-          )}
-          {ctx.isLoggedIn && <Route path="/home" element={<Home />}></Route>}
-          <Route path="projects" element={<Projects />}></Route>
-        </Routes>
+            {!ctx.isLoggedIn && ctx.isSignIn && <Route path="/sign" element={<Sign />}></Route>}
+            {ctx.isLoggedIn && (
+              <>
+                <Route path="/home/:id" element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="projects" element={<Projects />} />
+              </>
+            )}
+          </Routes>
+        </ProjectContextProvider>
       </div>
     </BrowserRouter>
   );
