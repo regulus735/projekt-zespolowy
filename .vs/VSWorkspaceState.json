@@ -2,16 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\backend",
-    "\\backend\\ViewModels",
-    "\\frontend",
+    "\\backend\\Controllers",
+    "\\backend\\DTO",
+    "\\backend\\Migrations",
+    "\\backend\\Models",
     "\\frontend\\src",
     "\\frontend\\src\\components",
-    "\\frontend\\src\\components\\Login",
-    "\\frontend\\src\\components\\Sign",
     "\\frontend\\src\\components\\UI",
-    "\\frontend\\src\\components\\UI\\Card",
-    "\\frontend\\src\\photos"
+    "\\frontend\\src\\components\\UI\\Card"
   ],
-  "SelectedNode": "\\frontend\\src\\components\\UI\\Card\\Card.js",
+  "SelectedNode": "\\docker-compose.yaml",
   "PreviewInSolutionExplorer": false
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using projekt_zespolowy.Models;
 using System.Threading.Tasks;
 using projekt_zespolowy.ViewModels;
+using projekt_zespolowy.DTO;
 
 namespace projekt_zespolowy.Controllers
 {
@@ -106,6 +107,33 @@ namespace projekt_zespolowy.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new { Message = "Users assigned to the project successfully" });
+        }
+
+        [HttpGet("project/{projectId}")]
+        public async Task<IActionResult> GetTasksByProject(int projectId)
+        {
+            var tasks = await _context.Tasks
+                                      .Where(t => t.ProjectId == projectId)
+                                      .Include(t => t.Users)
+                                      .Select(t => new TaskDto
+                                      {
+                                          Id = t.Id,
+                                          TaskName = t.TaskName,
+                                          TaskDescription = t.TaskDescription,
+                                          Users = t.Users.Select(u => new UserDto
+                                          {
+                                              Id = u.Id,
+                                              UserName = u.UserName
+                                          }).ToList()
+                                      })
+                                      .ToListAsync();
+
+            if (tasks == null || !tasks.Any())
+            {
+                return NotFound("No tasks found for the given project.");
+            }
+
+            return Ok(tasks);
         }
     }
 }

@@ -56,6 +56,36 @@ namespace projekt_zespolowy.Migrations
                     b.ToTable("Roles");
                 });
 
+            modelBuilder.Entity("projekt_zespolowy.Models.Task", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TaskDescription")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("TaskName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TaskStatus")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("Tasks");
+                });
+
             modelBuilder.Entity("projekt_zespolowy.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -87,6 +117,32 @@ namespace projekt_zespolowy.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("TaskUser", b =>
+                {
+                    b.Property<int>("TasksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TasksId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("TaskUser");
+                });
+
+            modelBuilder.Entity("projekt_zespolowy.Models.Task", b =>
+                {
+                    b.HasOne("projekt_zespolowy.Models.Project", "Project")
+                        .WithMany("Tasks")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
+                });
+
             modelBuilder.Entity("projekt_zespolowy.Models.User", b =>
                 {
                     b.HasOne("projekt_zespolowy.Models.Project", null)
@@ -102,8 +158,25 @@ namespace projekt_zespolowy.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("TaskUser", b =>
+                {
+                    b.HasOne("projekt_zespolowy.Models.Task", null)
+                        .WithMany()
+                        .HasForeignKey("TasksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("projekt_zespolowy.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("projekt_zespolowy.Models.Project", b =>
                 {
+                    b.Navigation("Tasks");
+
                     b.Navigation("Users");
                 });
 #pragma warning restore 612, 618

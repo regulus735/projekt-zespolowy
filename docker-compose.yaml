@@ -18,8 +18,8 @@ services:
        - "3000:3000"
      depends_on:
        - backend
-    # networks:
-     #  - project-network
+     #networks:
+       #- project-network
 
   backend:
     build:

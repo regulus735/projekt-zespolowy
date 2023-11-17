@@ -82,5 +82,19 @@ namespace projekt_zespolowy.Controllers
                 expiration = token.ValidTo
             });
         }
+
+        [HttpGet("getusers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _context.Users.ToListAsync();
+
+            var userViewModels = users.Select(user => new UserNameVM
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+            }).ToList();
+
+            return Ok(userViewModels);
+        }
     }
 }
