@@ -4,6 +4,7 @@ using projekt_zespolowy.Models;
 using System.Threading.Tasks;
 using projekt_zespolowy.ViewModels;
 using projekt_zespolowy.DTO;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace projekt_zespolowy.Controllers
 {
@@ -18,6 +19,26 @@ namespace projekt_zespolowy.Controllers
             _context = context;
         }
 
+        ///<summary>
+        ///Adds task
+        ///</summary>
+        /// <param name="task"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "taskName": "task1",
+        ///        "taskDescription": "taskdescription1",
+        ///        "taskStatus": 0,
+        ///        "projectId": 3,
+        ///        "userIds": [1,2,3]
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Task created successfully</response>
+        /// <response code="400">Wrong data provided</response>
+        /// <response code="404">Project not found</response>
         [HttpPost("addtask")]
         public async Task<IActionResult> CreateTask([FromBody] TaskVM taskViewModel)
         {
@@ -72,7 +93,26 @@ namespace projekt_zespolowy.Controllers
             return Ok(taskDto);
         }
 
-
+        ///<summary>
+        ///Edits specific task
+        ///</summary>
+        /// <param name="task"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "taskName": "task1",
+        ///        "taskDescription": "taskdescription1",
+        ///        "taskStatus": 0,
+        ///        "projectId": 3,
+        ///        "userIds": [1,2,3]
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Task updated successfully</response>
+        /// <response code="400">Wrong data provided</response>
+        /// <response code="404">Wrong data provided</response>
         [HttpPut("edittask/{id}")]
         public async Task<IActionResult> EditTask(int id, [FromBody] TaskVM taskViewModel)
         {
@@ -118,6 +158,12 @@ namespace projekt_zespolowy.Controllers
             return Ok(updatedTaskDto);
         }
 
+        ///<summary>
+        ///Deletes specific task
+        ///</summary>
+        /// <param name="task"></param>
+        /// <response code="200">Task deleted successfully</response>
+        /// <response code="404">Task not found</response>
         [HttpDelete("deletetask/{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
@@ -132,6 +178,23 @@ namespace projekt_zespolowy.Controllers
 
             return Ok();
         }
+
+        ///<summary>
+        ///Updates specific task status
+        ///</summary>
+        /// <param name="task"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "taskStatus": 1
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Task status updated</response>
+        /// <response code="400">Wrong data provided</response>
+        /// <response code="404">Task not found</response>
         [HttpPut("updatetaskstatus/{id}")]
         public async Task<IActionResult> UpdateTaskStatus(int id, [FromBody] TaskStatusUpdateVM updateViewModel)
         {

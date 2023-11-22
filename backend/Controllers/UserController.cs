@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 
 namespace projekt_zespolowy.Controllers
@@ -25,6 +26,23 @@ namespace projekt_zespolowy.Controllers
         private const string SecretKey = "VerySecretKeyTbh";
         private readonly SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(SecretKey));
 
+        ///<summary>
+        ///User sign up
+        ///</summary>
+        /// <param name="user"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "userName": "user1",
+        ///        "password": "password123",
+        ///        "role": "user"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">User registered successfully</response>
+        /// <response code="400">Username already exists</response>
         [HttpPost("signup")]
         public async Task<IActionResult> Register([FromBody] UserViewModel model)
         {
@@ -54,6 +72,22 @@ namespace projekt_zespolowy.Controllers
             return Ok(new { Message = "User registered successfully" });
         }
 
+        ///<summary>
+        ///User log in
+        ///</summary>
+        /// <param name="user"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "userName": "user1",
+        ///        "password": "password123"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">User logged in successfully</response>
+        /// <response code="401">Invalid credentials</response>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginVM model)
         {
@@ -88,6 +122,11 @@ namespace projekt_zespolowy.Controllers
             });
         }
 
+        ///<summary>
+        ///Gets all users
+        ///</summary>
+        /// <param name="user"></param>
+        /// <response code="200">Returns all users</response>
         [HttpGet("getusers")]
         public async Task<IActionResult> GetAllUsers()
         {

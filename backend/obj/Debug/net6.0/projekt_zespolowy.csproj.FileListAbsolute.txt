@@ -70,3 +70,4 @@ C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net
 C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.Owin.Security.OAuth.dll
 C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Owin.dll
 C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\olejn\Desktop\Projekt_zespolowy\projekt-zespolowy\backend\bin\Debug\net6.0\Swashbuckle.AspNetCore.Annotations.dll
