@@ -10,7 +10,6 @@ import {
   INIT_COLUMNS,
   UPDATE_TASK_STATUS_URL,
 } from './projectContext.constants';
-//import { useNavigate } from "react-router-dom";
 
 const ProjectContext = React.createContext({
   projects: [],
@@ -97,18 +96,15 @@ export const ProjectContextProvider = ({ children }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedTask),
     });
-
     const data = await response.json();
 
     setColumns((prev) => {
       const updatedColumns = [...prev];
-      const foundIndex = updatedColumns[updatedTask.taskStatus].items.findIndex(
-        ({ id }) => id === updatedTask.id,
-      );
+      const foundIndex = updatedColumns[data.taskStatus].items.findIndex(({ id }) => id === taskId);
 
       if (foundIndex === -1) return updatedColumns;
 
-      updatedColumns[updatedTask.taskStatus].items[foundIndex] = data;
+      updatedColumns[data.taskStatus].items[foundIndex] = data;
 
       return updatedColumns;
     });
