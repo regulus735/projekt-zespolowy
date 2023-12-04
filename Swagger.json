@@ -1,0 +1,601 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Task Manager",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Project": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Gets all projects",
+        "responses": {
+          "200": {
+            "description": "Returns list of projects"
+          }
+        }
+      }
+    },
+    "/api/Project/create": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Creates project",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"ProjectName\": \"project1\"\r\n    }",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectVM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectVM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectVM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns message \"Project created successfully\""
+          },
+          "400": {
+            "description": "Invalid data submitted"
+          }
+        }
+      }
+    },
+    "/api/Project/edit": {
+      "put": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Edits project",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"id\": 1,\r\n       \"ProjectName\": \"project1\"\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateVM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateVM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectUpdateVM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns message \"Project updated successfully\""
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      }
+    },
+    "/api/Project/delete": {
+      "delete": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Deletes project",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"id\": 1\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDeleteVM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDeleteVM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectDeleteVM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns message \"Project deleted successfully\""
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      }
+    },
+    "/api/Project/assign": {
+      "post": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Assigns users to project",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"id\": 1,\r\n       \"userId\": [1,2,3]\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignUsersVM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignUsersVM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignUsersVM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns message \"Users assigned to the project successfully\""
+          },
+          "404": {
+            "description": "Project not found / User not found"
+          }
+        }
+      }
+    },
+    "/api/Project/project/{projectId}": {
+      "get": {
+        "tags": [
+          "Project"
+        ],
+        "summary": "Gets tasks for given project",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns all tasks for given project"
+          },
+          "404": {
+            "description": "Returns message \"No tasks found for the given project\""
+          }
+        }
+      }
+    },
+    "/api/Task/addtask": {
+      "post": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Adds task",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"taskName\": \"task1\",\r\n       \"taskDescription\": \"taskdescription1\",\r\n       \"taskStatus\": 0,\r\n       \"projectId\": 3,\r\n       \"userIds\": [1,2,3]\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskVM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskVM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskVM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task created successfully"
+          },
+          "400": {
+            "description": "Wrong data provided"
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      }
+    },
+    "/api/Task/edittask/{id}": {
+      "put": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Edits specific task",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"taskName\": \"task1\",\r\n       \"taskDescription\": \"taskdescription1\",\r\n       \"taskStatus\": 0,\r\n       \"projectId\": 3,\r\n       \"userIds\": [1,2,3]\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskVM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskVM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskVM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task updated successfully"
+          },
+          "400": {
+            "description": "Wrong data provided"
+          },
+          "404": {
+            "description": "Wrong data provided"
+          }
+        }
+      }
+    },
+    "/api/Task/deletetask/{id}": {
+      "delete": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Deletes specific task",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Task deleted successfully"
+          },
+          "404": {
+            "description": "Task not found"
+          }
+        }
+      }
+    },
+    "/api/Task/updatetaskstatus/{id}": {
+      "put": {
+        "tags": [
+          "Task"
+        ],
+        "summary": "Updates specific task status",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"taskStatus\": 1\r\n    }",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskStatusUpdateVM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskStatusUpdateVM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaskStatusUpdateVM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Task status updated"
+          },
+          "400": {
+            "description": "Wrong data provided"
+          },
+          "404": {
+            "description": "Task not found"
+          }
+        }
+      }
+    },
+    "/api/User/signup": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User sign up",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"userName\": \"user1\",\r\n       \"password\": \"password123\",\r\n       \"role\": \"user\"\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserViewModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserViewModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserViewModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Username already exists"
+          }
+        }
+      }
+    },
+    "/api/User/login": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "User log in",
+        "description": "Sample request:\r\n            \r\n    POST\r\n    {\r\n       \"userName\": \"user1\",\r\n       \"password\": \"password123\"\r\n    }",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginVM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginVM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLoginVM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/api/User/getusers": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Gets all users",
+        "responses": {
+          "200": {
+            "description": "Returns all users"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AssignUsersVM": {
+        "required": [
+          "id",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectDeleteVM": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectUpdateVM": {
+        "required": [
+          "id",
+          "projectName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "projectName": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectVM": {
+        "required": [
+          "projectName"
+        ],
+        "type": "object",
+        "properties": {
+          "projectName": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskStatusUpdateVM": {
+        "type": "object",
+        "properties": {
+          "taskStatus": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TaskVM": {
+        "required": [
+          "projectId",
+          "taskDescription",
+          "taskName",
+          "taskStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "taskName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "taskDescription": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "taskStatus": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserLoginVM": {
+        "required": [
+          "password",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "userName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserViewModel": {
+        "required": [
+          "password",
+          "role",
+          "userName"
+        ],
+        "type": "object",
+        "properties": {
+          "userName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "role": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
