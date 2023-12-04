@@ -4,6 +4,8 @@ using projekt_zespolowy.Models;
 using System.Threading.Tasks;
 using projekt_zespolowy.ViewModels;
 using projekt_zespolowy.DTO;
+using Swashbuckle.AspNetCore.SwaggerGen;
+
 
 namespace projekt_zespolowy.Controllers
 {
@@ -17,7 +19,11 @@ namespace projekt_zespolowy.Controllers
         {
             _context = context;
         }
-
+        ///<summary>
+        ///Gets all projects
+        ///</summary>
+        ///<returns>List of projects</returns>
+        ///<response code="200">Returns list of projects</response>
         [HttpGet]
         public async Task<IActionResult> GetAllProjects()
         {
@@ -26,6 +32,21 @@ namespace projekt_zespolowy.Controllers
             return Ok(projects);
         }
 
+        ///<summary>
+        ///Creates project
+        ///</summary>
+        /// <param name="project"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "ProjectName": "project1"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns message "Project created successfully"</response>
+        /// <response code="400">Invalid data submitted</response>
         [HttpPost("create")]
         public async Task<IActionResult> CreateProject([FromBody] ProjectVM project)
         {
@@ -45,6 +66,22 @@ namespace projekt_zespolowy.Controllers
             return Ok(new { Message = "Project created successfully" });
         }
 
+        ///<summary>
+        ///Edits project
+        ///</summary>
+        /// <param name="project"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "id": 1,
+        ///        "ProjectName": "project1"
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns message "Project updated successfully"</response>
+        /// <response code="404">Project not found</response>
         [HttpPut("edit")]
         public async Task<IActionResult> EditProject([FromBody] ProjectUpdateVM projectDTO)
         {
@@ -61,6 +98,21 @@ namespace projekt_zespolowy.Controllers
             return Ok(new { Message = "Project updated successfully" });
         }
 
+        ///<summary>
+        ///Deletes project
+        ///</summary>
+        /// <param name="project"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "id": 1
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns message "Project deleted successfully"</response>
+        /// <response code="404">Project not found</response>
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteProject([FromBody] ProjectDeleteVM projectDTO)
         {
@@ -77,6 +129,22 @@ namespace projekt_zespolowy.Controllers
             return Ok(new { Message = "Project deleted successfully" });
         }
 
+        ///<summary>
+        ///Assigns users to project
+        ///</summary>
+        /// <param name="project"></param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST
+        ///     {
+        ///        "id": 1,
+        ///        "userId": [1,2,3]
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns message "Users assigned to the project successfully"</response>
+        /// <response code="404">Project not found / User not found</response>
         [HttpPost("assign")]
         public async Task<IActionResult> AssignUsersToProject([FromBody] AssignUsersVM assignment)
         {
@@ -109,6 +177,12 @@ namespace projekt_zespolowy.Controllers
             return Ok(new { Message = "Users assigned to the project successfully" });
         }
 
+        ///<summary>
+        ///Gets tasks for given project
+        ///</summary>
+        /// <param name="project"></param>
+        /// <response code="200">Returns all tasks for given project</response>
+        /// <response code="404">Returns message "No tasks found for the given project"</response>
         [HttpGet("project/{projectId}")]
         public async Task<IActionResult> GetTasksByProject(int projectId)
         {
@@ -129,12 +203,23 @@ namespace projekt_zespolowy.Controllers
                                       })
                                       .ToListAsync();
 
+            var projectName = await _context.Projects
+                .Where(p => p.Id == projectId)
+                .Select(p => p.ProjectName)
+                .FirstOrDefaultAsync();
+
             if (tasks == null || !tasks.Any())
             {
                 return NotFound("No tasks found for the given project.");
             }
 
-            return Ok(tasks);
+            var response = new
+            {
+                ProjectName = projectName,
+                Tasks = tasks
+            };
+
+            return Ok(response);
         }
     }
 }

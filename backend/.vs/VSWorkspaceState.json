@@ -2,10 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Controllers",
+    "\\DTO",
     "\\Migrations",
     "\\Models",
     "\\ViewModels"
   ],
-  "SelectedNode": "\\Dockerfile",
+  "SelectedNode": "\\Controllers\\ProjectController.cs",
   "PreviewInSolutionExplorer": false
 }

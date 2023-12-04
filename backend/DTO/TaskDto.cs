@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using projekt_zespolowy.Models;
 using System;
 
 namespace projekt_zespolowy.DTO

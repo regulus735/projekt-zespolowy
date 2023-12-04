@@ -8,6 +8,6 @@
     "\\backend\\Models",
     "\\backend\\ViewModels"
   ],
-  "SelectedNode": "\\docker-compose.yaml",
+  "SelectedNode": "\\backend\\Controllers\\TaskController.cs",
   "PreviewInSolutionExplorer": false
 }
